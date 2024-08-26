@@ -8,13 +8,14 @@ import { signinSchema } from "../schemas/signin";
 import { axios } from "../config/axios-client";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../store/user.slice";
+import { checkEmpty } from "../config/helper";
 
 export default function Signin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let user = useSelector((state) => state.user);
   useEffect(() => {
-    user = JSON.parse(user);
+    user = checkEmpty(user) ? user :  JSON.parse(user);
     if (user._id) {
       navigate("/");
     }

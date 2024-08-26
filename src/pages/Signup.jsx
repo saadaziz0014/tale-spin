@@ -6,11 +6,12 @@ import { useForm } from "react-hook-form";
 import { signupSchema } from "../schemas/signup";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSelector } from "react-redux";
+import { checkEmpty } from "../config/helper";
 
 export default function Signup() {
   let user = useSelector((state) => state.user);
   useEffect(() => {
-    user = JSON.parse(user);
+    user = checkEmpty(user) ? user : JSON.parse(user);
     if (user._id) {
       navigate("/");
     }
